@@ -22,29 +22,55 @@ export default function TransactionTable() {
   const transactions: Transaction[] = data?.transactions ?? [];
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>ID</TableHead>
-          <TableHead>Description</TableHead>
-          <TableHead>Category</TableHead>
-          <TableHead>Amount</TableHead>
-          <TableHead>Date</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {transactions.map((transaction) => (
-          <TableRow key={transaction.id}>
-            <TableCell>{transaction.id}</TableCell>
-            <TableCell>{transaction.description}</TableCell>
-            <TableCell>{transaction.category}</TableCell>
-            <TableCell>${transaction.amount.toFixed(2)}</TableCell>
-            <TableCell>
-              {new Date(transaction.date).toLocaleDateString()}
-            </TableCell>
+    <div className='overflow-x-auto'>
+      <Table className='w-full border border-gray-300 shadow-sm'>
+        {/* Header Section */}
+        <TableHeader className='bg-gray-100 border-b border-gray-300'>
+          <TableRow className='border-b border-gray-300'>
+            <TableHead className='font-bold text-gray-700 p-3 border-r border-gray-300'>
+              ID
+            </TableHead>
+            <TableHead className='font-bold text-gray-700 p-3 border-r border-gray-300'>
+              Date
+            </TableHead>
+            <TableHead className='font-bold text-gray-700 p-3 border-r border-gray-300'>
+              Amount
+            </TableHead>
+            <TableHead className='font-bold text-gray-700 p-3 border-r border-gray-300'>
+              Merchant
+            </TableHead>
+            <TableHead className='font-bold text-gray-700 p-3'>
+              Category
+            </TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+
+        {/* Body Section */}
+        <TableBody>
+          {transactions.map((transaction) => (
+            <TableRow
+              key={transaction.id}
+              className='border-b border-gray-300 hover:bg-gray-50 transition'
+            >
+              <TableCell className='p-3 border-r border-gray-200'>
+                {transaction.id}
+              </TableCell>
+              <TableCell className='p-3 border-r border-gray-200'>
+                {new Date(transaction.date).toLocaleDateString()}
+              </TableCell>
+              <TableCell className='p-3 border-r border-gray-200'>
+                ${transaction.amount.toFixed(2)}
+              </TableCell>
+              <TableCell className='p-3 border-r border-gray-200 capitalize'>
+                {transaction.merchant}
+              </TableCell>
+              <TableCell className='p-3 capitalize'>
+                {transaction.category}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
